@@ -1,5 +1,5 @@
 # Oschool
-Learning Management System in Saas
+Example of SaaS
 
 ![screenshot](./public/images/screenshot.png)
 
