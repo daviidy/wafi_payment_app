@@ -1,5 +1,5 @@
-# Oschool
-Example of SaaS
+# Payment app
+Example of payment app
 
 ![screenshot](./public/images/screenshot.png)
 
