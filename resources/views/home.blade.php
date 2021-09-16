@@ -52,7 +52,7 @@
         </div>
         <div class="col-md-4">
             <div class="card shadow">
-                <a href="/bookings/list" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#sendModal">
+                <a href="/bookings/list" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="{{$balance && $balance->amount > 0 ? '#sendModal' : '#warningModal'}}">
                     <div class="card-body text-center">
                         <div class="styles__CategoryButton_Icon-vgii8s-6 fjEdZT"><svg width="164" height="144"
                                 viewBox="0 0 164 144" fill="none">
@@ -87,7 +87,7 @@
         </div>
         <div class="col-md-4">
             <div class="card shadow">
-                <a href="http://localhost:8000/users" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#transferModal">
+                <a href="http://localhost:8000/users" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="{{$balance && $balance->amount > 0 ? '#transferModal' : '#warningModal'}}">
                     <div class="card-body text-center">
                         <div class="styles__CategoryButton_Icon-vgii8s-6 fjEdZT"><svg width="162" height="145"
                                 viewBox="0 0 162 145" fill="none">

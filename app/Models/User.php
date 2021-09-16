@@ -47,8 +47,23 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Deposit');
     }
 
+    public function transfers()
+    {
+        return $this->hasMany('App\Models\Transfer');
+    }
+
     public function balance()
     {
         return $this->hasOne(Balance::class);
+    }
+
+    public function sendings()
+    {
+        return $this->hasMany(Sending::class, 'sender_id');
+    }
+
+    public function receivings()
+    {
+        return $this->hasMany(Sending::class, 'receiver_id');
     }
 }

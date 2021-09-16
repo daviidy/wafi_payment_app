@@ -20,5 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::resource('deposits', App\Http\Controllers\DepositController::class)->middleware('auth');
+Route::resource('sendings', App\Http\Controllers\SendingController::class)->middleware('auth');
+Route::resource('transfers', App\Http\Controllers\TransferController::class)->middleware('auth');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

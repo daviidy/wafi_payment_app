@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Deposit;
-use App\Models\Balance;
+use App\Models\Transfer;
 use Illuminate\Http\Request;
 use Auth;
 
-class DepositController extends Controller
+class TransferController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,29 +36,38 @@ class DepositController extends Controller
      */
     public function store(Request $request)
     {
-        $deposit = Deposit::create($request->all());
-        $balance = Auth::user()->balance;
+        $balance_sender = Auth::user()->balance;
+        if ($balance_sender < $request->amount) {
+            return redirect('home')->with('status', 'You do not have enough money in your account');
+        }
+        else {
+            $transfer = Transfer::create($request->all());
+            $this->debit_balance($balance_sender, Auth::user(), $request->amount);
+            return redirect('home')->with('status', 'You sent successfully $'.$request->amount.' to '.$request->gateway);
+        }
+    }
+
+    public function debit_balance($balance, $user, $amount) {
         if (!$balance) {
             $balance = Balance::create([
-                'amount' => $deposit->amount,
-                'user_id' => $request->user_id
+                'amount' => $amount,
+                'user_id' => $user->id
             ]);
         }
         else {
-            $balance->amount += $deposit->amount;
+            $balance->amount -= $amount;
     
             $balance->save();
         }
-        return redirect('home')->with('status', 'Deposit made successfully');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Deposit  $deposit
+     * @param  \App\Models\Transfer  $transfer
      * @return \Illuminate\Http\Response
      */
-    public function show(Deposit $deposit)
+    public function show(Transfer $transfer)
     {
         //
     }
@@ -67,10 +75,10 @@ class DepositController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Deposit  $deposit
+     * @param  \App\Models\Transfer  $transfer
      * @return \Illuminate\Http\Response
      */
-    public function edit(Deposit $deposit)
+    public function edit(Transfer $transfer)
     {
         //
     }
@@ -79,10 +87,10 @@ class DepositController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Deposit  $deposit
+     * @param  \App\Models\Transfer  $transfer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Deposit $deposit)
+    public function update(Request $request, Transfer $transfer)
     {
         //
     }
@@ -90,10 +98,10 @@ class DepositController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Deposit  $deposit
+     * @param  \App\Models\Transfer  $transfer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Deposit $deposit)
+    public function destroy(Transfer $transfer)
     {
         //
     }

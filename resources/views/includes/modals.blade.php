@@ -33,7 +33,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-         <form>
+         <form action="{{url('sendings')}}" method="POST" enctype="multipart/form-data">
+          @csrf
             <div class="mb-3">
                 <label for="amount" class="form-label">Amount</label>
                 <input type="number" class="form-control" id="amount" name="amount">
@@ -43,7 +44,7 @@
                 <select name="receiver_id" id="">
                   @foreach($users as $user)
                   @if($user->id != Auth::user()->id)
-                  <option value="1">Dave</option>
+                  <option value="{{$user->id}}">{{$user->name}}</option>
                   @endif 
                   @endforeach
                 </select>
@@ -68,7 +69,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-         <form>
+         <form action="{{url('transfers')}}" method="POST" enctype="multipart/form-data">
+          @csrf
             <div class="mb-3">
                 <label for="amount" class="form-label">Amount</label>
                 <input type="number" class="form-control" id="amount" name="amount">
@@ -86,6 +88,21 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="warningModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-body">
+         <p class="font-weight-bold">You don't have enough money to perform this operation</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
