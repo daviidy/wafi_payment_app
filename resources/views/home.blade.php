@@ -3,10 +3,23 @@
 @section('content')
 
 <div class="container">
+    @include('includes.status')
+    <div class="row mt-5 mb-3">
+        <div class="col-6 font-weight-bold">
+            <h4>
+                $
+                @if($balance)
+                {{$balance->amount}}
+                @else 
+                0
+                @endif
+            </h4>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-4">
-            <div class="card">
-                <a href="http://localhost:8000/properties/list" class="text-decoration-none">
+            <div class="card shadow">
+                <a href="http://localhost:8000/properties/list" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#depositModal">
                     <div class="card-body text-center">
                         <div class="styles__CategoryButton_Icon-vgii8s-6 fjEdZT"><svg width="161" height="147"
                                 viewBox="0 0 161 147" fill="none">
@@ -38,8 +51,8 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card">
-                <a href="/bookings/list" class="text-decoration-none">
+            <div class="card shadow">
+                <a href="/bookings/list" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#sendModal">
                     <div class="card-body text-center">
                         <div class="styles__CategoryButton_Icon-vgii8s-6 fjEdZT"><svg width="164" height="144"
                                 viewBox="0 0 164 144" fill="none">
@@ -73,8 +86,8 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card">
-                <a href="http://localhost:8000/users" class="text-decoration-none">
+            <div class="card shadow">
+                <a href="http://localhost:8000/users" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#transferModal">
                     <div class="card-body text-center">
                         <div class="styles__CategoryButton_Icon-vgii8s-6 fjEdZT"><svg width="162" height="145"
                                 viewBox="0 0 162 145" fill="none">
@@ -94,7 +107,7 @@
         </div>
     </div>
     <div class="row text-center">
-        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+        <a class="dropdown-item fw-bold" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
             {{ __('Logout') }}
         </a>
@@ -104,5 +117,7 @@
         </form>
     </div>
 </div>
+
+@include('includes.modals')
 
 @endsection
